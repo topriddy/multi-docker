@@ -15,7 +15,7 @@ after_success:
   - docker build -t topriddy/multi-worker ./worker  
   # Log in to the docker CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
-  - docker push topriddy/mulit-client
-  - docker push topriddy/mulit-nginx
-  - docker push topriddy/mulit-server
-  - docker push topriddy/mulit-worker
+  - docker push topriddy/multi-client
+  - docker push topriddy/multi-nginx
+  - docker push topriddy/multi-server
+  - docker push topriddy/multi-worker
