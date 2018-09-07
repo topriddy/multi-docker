@@ -1,0 +1,21 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t topriddy/react-test -f ./client/Dockerfile.dev ./client/
+
+scripts:
+  - docker run topriddy/react-test npm test -- --coverage
+
+after_success:
+  - docker build -t topriddy/multi-client ./client  
+  - docker build -t topriddy/multi-nginx ./nginx  
+  - docker build -t topriddy/multi-server ./server  
+  - docker build -t topriddy/multi-worker ./worker  
+  # Log in to the docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  - docker push topriddy/mulit-client
+  - docker push topriddy/mulit-nginx
+  - docker push topriddy/mulit-server
+  - docker push topriddy/mulit-worker
