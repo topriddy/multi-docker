@@ -5,7 +5,7 @@ services:
 before_install:
   - docker build -t topriddy/react-test -f ./client/Dockerfile.dev ./client/
 
-scripts:
+script:
   - docker run topriddy/react-test npm test -- --coverage
 
 after_success:
@@ -15,6 +15,7 @@ after_success:
   - docker build -t topriddy/multi-worker ./worker  
   # Log in to the docker CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  # Push images to docker hub
   - docker push topriddy/multi-client
   - docker push topriddy/multi-nginx
   - docker push topriddy/multi-server
