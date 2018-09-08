@@ -20,3 +20,15 @@ after_success:
   - docker push topriddy/multi-nginx
   - docker push topriddy/multi-server
   - docker push topriddy/multi-worker
+
+deploy:
+  provider: elasticbeanstalk
+  region: "us-east-2"
+  app: multi-docker
+  env: MultiDocker-env
+  bucket-name: elasticbeanstalk-us-east-2-533951633431
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key:
+    secure: $AWS_SECRET_KEY
